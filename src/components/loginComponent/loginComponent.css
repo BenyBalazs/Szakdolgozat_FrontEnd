@@ -1,0 +1,21 @@
+#custom-width{
+    max-width: 30em;
+    border-bottom-color: black;
+    border-top-width: 2em;
+    border-radius: 3em;
+}
+
+.btn-sailor_blue {
+    background-color: #00203FFF;
+    color: white;
+}
+
+.btn-xxl {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+}
+
+.btn-outline_sailor_blue {
+    background-color: transparent;
+    border-color: #00203FFF;
+}
