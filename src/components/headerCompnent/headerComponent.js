@@ -17,7 +17,7 @@ class Header extends React.Component{
                             height="30"
                             className="d-inline-block align-top"
                         />{' '}
-                        Pénzgyi segéd webalkalmazás
+                        Pénzügyi segéd webalkalmazás
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
