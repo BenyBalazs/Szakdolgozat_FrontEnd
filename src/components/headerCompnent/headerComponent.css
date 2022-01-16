@@ -1,9 +1,13 @@
-.custom-color{
+.bg-myColor{
     background-color: #00203FFF;
-    height: 3.2em;
-    padding: 0;
-    color: azure;
+    color: white;
 }
 .page-title{
     color: whitesmoke;
 }
+
+.right-aligned{
+    justify-content: flex-end;
+}
+
+
