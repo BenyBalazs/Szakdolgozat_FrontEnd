@@ -8,7 +8,7 @@ class Header extends React.Component{
     render() {
         return (
             <Navbar collapseOnSelect expand="lg" bg="myColor" variant="dark" sticky="top" className="left-aligned">
-                <Container>
+
                     <Navbar.Brand>
                         <img
                             alt=""
@@ -29,7 +29,7 @@ class Header extends React.Component{
                             <Nav.Link href="/login">Bejelentkezés</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
-                </Container>
+
             </Navbar>
         );
     }
