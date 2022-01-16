@@ -6,7 +6,7 @@ class LoginComponent extends React.Component {
     render() {
        return (
 
-               <Container id="custom-width" className="sm-align-content-center" fluid="lg">
+               <Container id="custom-width" className="align-content-center" fluid="lg">
                    <Form className="text-center">
                        <h1 className="mb-5">Bejelentkezés</h1>
 
@@ -22,11 +22,11 @@ class LoginComponent extends React.Component {
                        </Button>
 
                        <Container>
-                       <Row>
-                           <Col xs={6} md={4} className="text-start">
-                                <div>Még nem regisztrált?</div>
+                       <Row className="align-items-center">
+                           <Col className="text-start">
+                                Még nem regisztrált?
                            </Col>
-                           <Col xs={12} md={8} className="text-end">
+                           <Col className="text-end">
                                <Button variant="outline_sailor_blue" type="submit" >
                                    Regisztrálok!
                                </Button>
