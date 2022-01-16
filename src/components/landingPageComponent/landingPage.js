@@ -5,7 +5,7 @@ class LandingPage extends React.Component{
 
         return (
             <div>
-
+                I'm the landing page
             </div>
         );
     }
