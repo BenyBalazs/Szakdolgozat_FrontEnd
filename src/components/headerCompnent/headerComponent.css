@@ -1,7 +1,8 @@
 .bg-myColor{
     background-color: #00203FFF;
     color: white;
-    padding: 2em 2em;
+    padding: 0em 0em;
+    margin: 0em 0em 2em 0em;
 }
 .page-title{
     color: whitesmoke;
