@@ -13,6 +13,4 @@ export function RedirectLoginButton() {
         </Button>
     );
 
-
-
 }
