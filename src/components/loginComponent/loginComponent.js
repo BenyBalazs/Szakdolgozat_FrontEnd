@@ -11,7 +11,7 @@ class LoginComponent extends React.Component {
                        <h1 className="mb-5">Bejelentkezés</h1>
 
                        <FloatingLabel controlId="floatingInput" label="Felhasználónév" className="mb-3">
-                           <Form.Control type="email" placeholder="Anonimusz" />
+                           <Form.Control type="text" placeholder="Anonimusz" />
                        </FloatingLabel>
                        <FloatingLabel controlId="floatingPassword" label="Jelszó" className="mb-3">
                            <Form.Control type="password" placeholder="Password" />
