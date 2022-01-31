@@ -5,10 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginComponent from "./components/loginComponent/loginComponent";
 import { Routes, Route, Link } from "react-router-dom";
 import LandingPage from "./components/landingPageComponent/landingPage";
-
-function Rout() {
-    return null;
-}
+import RegisterComponent from "./components/registerComponent/registerComponent";
 
 function App() {
   return (
@@ -18,6 +15,7 @@ function App() {
               <Routes>
                   <Route path="/" element={<LandingPage/>}/>
                   <Route path="/login" element={<LoginComponent/>}/>
+                  <Route path="/register" element={<RegisterComponent/>}/>
               </Routes>
           </div>
       </div>

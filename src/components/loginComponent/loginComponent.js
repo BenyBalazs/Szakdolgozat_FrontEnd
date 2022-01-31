@@ -1,10 +1,13 @@
 import React from 'react';
 import {Button, Col, Container, FloatingLabel, Form, Row} from "react-bootstrap";
 import './loginComponent.css'
+import { useParams, useNavigate } from "react-router-dom";
 
-class LoginComponent extends React.Component {
-    render() {
-       return (
+function LoginComponent() {
+
+    let navigate = useNavigate()
+
+    return (
 
                <Container id="login-form-container" className="align-content-center" fluid="lg">
                    <Form className="text-center">
@@ -27,7 +30,7 @@ class LoginComponent extends React.Component {
                                 Még nem regisztrált?
                            </Col>
                            <Col className="text-end">
-                               <Button variant="outline_sailor_blue" type="button" >
+                               <Button variant="outline_sailor_blue" type="button" onClick={() => navigate("/register")} >
                                    Regisztrálok!
                                </Button>
                            </Col>
@@ -37,6 +40,5 @@ class LoginComponent extends React.Component {
                </Container>
         )
     }
-}
 
 export default LoginComponent;
