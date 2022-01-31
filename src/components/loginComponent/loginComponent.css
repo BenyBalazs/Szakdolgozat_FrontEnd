@@ -1,8 +1,11 @@
-#custom-width{
+#login-form-container{
     max-width: 30em;
-    border-bottom-color: black;
-    border-top-width: 2em;
-    border-radius: 3em;
+    border-style: solid;
+    border-width: 0.01em;
+    border-radius: 0.3em;
+    border-color: black;
+    background-color: white;
+    padding: 1em;
 }
 
 .btn-sailor_blue {

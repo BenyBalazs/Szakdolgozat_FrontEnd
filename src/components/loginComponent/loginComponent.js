@@ -6,7 +6,7 @@ class LoginComponent extends React.Component {
     render() {
        return (
 
-               <Container id="custom-width" className="align-content-center" fluid="lg">
+               <Container id="login-form-container" className="align-content-center" fluid="lg">
                    <Form className="text-center">
                        <h1 className="mb-5">Bejelentkezés</h1>
 
