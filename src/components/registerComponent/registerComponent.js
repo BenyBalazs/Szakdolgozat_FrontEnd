@@ -1,7 +1,10 @@
 import React from 'react';
 import {Button, Col, Container, FloatingLabel, Form, Row} from "react-bootstrap";
+import {RedirectLoginButton} from "./redirectLoginButton";
+
 
 class RegisterComponent extends React.Component {
+
     render() {
         return (
 
@@ -12,7 +15,7 @@ class RegisterComponent extends React.Component {
                     <FloatingLabel controlId="floatingInput" label="Felhasználónév" className="mb-3">
                         <Form.Control type='text' placeholder="Anonimusz" />
                     </FloatingLabel>
-                    <FloatingLabel controlId="floatingInput" label="Felhasználónév" className="mb-3">
+                    <FloatingLabel controlId="floatingInput" label="E-mail" className="mb-3">
                         <Form.Control type="email" placeholder="Anonimusz" />
                     </FloatingLabel>
                     <FloatingLabel controlId="floatingPassword" label="Jelszó" className="mb-3">
@@ -29,9 +32,7 @@ class RegisterComponent extends React.Component {
                                 Már van fiókod?
                             </Col>
                             <Col className="text-end">
-                                <Button variant="outline_sailor_blue" type="button" >
-                                    Bejelentkezek!
-                                </Button>
+                                <RedirectLoginButton/>
                             </Col>
                         </Row>
                     </Container>
