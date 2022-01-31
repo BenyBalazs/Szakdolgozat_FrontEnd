@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Col, Container, FloatingLabel, Form, Row} from "react-bootstrap";
 import './loginComponent.css'
+import '../formStyle.css'
 import { useParams, useNavigate } from "react-router-dom";
 
 function LoginComponent() {
