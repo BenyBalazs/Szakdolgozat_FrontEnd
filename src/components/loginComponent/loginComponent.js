@@ -27,7 +27,7 @@ class LoginComponent extends React.Component {
                                 Még nem regisztrált?
                            </Col>
                            <Col className="text-end">
-                               <Button variant="outline_sailor_blue" type="submit" >
+                               <Button variant="outline_sailor_blue" type="button" >
                                    Regisztrálok!
                                </Button>
                            </Col>
