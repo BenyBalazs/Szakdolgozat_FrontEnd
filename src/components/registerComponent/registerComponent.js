@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Col, Container, FloatingLabel, Form, Row} from "react-bootstrap";
-import {RedirectLoginButton} from "./redirectLoginButton";
+import {RedirectLoginButton} from "../redirectLoginButton";
 
 
 class RegisterComponent extends React.Component {
@@ -32,7 +32,7 @@ class RegisterComponent extends React.Component {
                                 Már van fiókod?
                             </Col>
                             <Col className="text-end">
-                                <RedirectLoginButton/>
+                                <RedirectLoginButton buttonName={"Bejelentkezek!"} path={"/login"}/>
                             </Col>
                         </Row>
                     </Container>
