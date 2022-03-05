@@ -1,7 +1,22 @@
+#remove-padding {
+    padding: 0em 0em 0em 0em;
+    margin: 0em 0em 0em 0em;
+    width: 100%;
+}
+
+.skip-nav-link {
+    position: absolute;
+    transform: translateY(-120%);
+}
+
+.skip-nav-link:focus{
+    transform: translateY(0);
+}
+
 .bg-myColor{
     background-color: #00203FFF;
     color: white;
-    padding: 0em 0em;
+    padding: 0em 1em;
     margin: 0em 0em 2em 0em;
 }
 .page-title{

@@ -7,7 +7,10 @@ import logo from '../../images/4047776-middle.png'
 class Header extends React.Component{
     render() {
         return (
-            <Navbar collapseOnSelect expand="lg" bg="myColor" variant="dark" sticky="top" className="left-aligned">
+            <div id="remove-padding">
+                <Nav.Link className="skip-nav-link">Navigáció atugrása</Nav.Link>
+
+                <Navbar collapseOnSelect expand="lg" bg="myColor" variant="dark" sticky="top" className="left-aligned">
 
                     <Navbar.Brand>
                         <img
@@ -30,7 +33,9 @@ class Header extends React.Component{
                         </Nav>
                     </Navbar.Collapse>
 
-            </Navbar>
+                </Navbar>
+
+            </div>
         );
     }
 }
