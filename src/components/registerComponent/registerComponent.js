@@ -16,9 +16,9 @@ class RegisterComponent extends React.Component {
     render() {
         return (
 
-            <Container id="login-form-container" className="align-content-center" fluid="lg" onSubmit={this.handleRegister}>
+            <Container id="login-form-container" className="align-content-center" fluid="lg">
 
-                    <Form className="text-center" noValidate validated={this.state.validated}>
+                    <Form className="text-center" validated={this.state.validated} onSubmit={this.handleRegister}>
                         <h1 className="mb-5">Regisztráció</h1>
 
                         <Alert className={this.state.showError} variant="danger">
@@ -27,20 +27,22 @@ class RegisterComponent extends React.Component {
                         </Alert>
 
                         <FloatingLabel controlId="floatingInput" label="Felhasználónév" className="mb-3">
-                            <Form.Control name="username" type='text' placeholder="Anonimusz" />
+                            <Form.Control name="username" type='text' placeholder="Anonimusz" required/>
                         </FloatingLabel>
+                        <Form.Control.Feedback type="invalid">A jelszó mező nem lehet üres.</Form.Control.Feedback>
                         <FloatingLabel controlId="floatingEmail" label="E-mail" className="mb-3">
-                            <Form.Control type="email" placeholder="Anonimusz" />
+                            <Form.Control type="email" placeholder="Anonimusz" required/>
                         </FloatingLabel>
+                        <Form.Control.Feedback type="invalid">Az email mező nem lehet üres.</Form.Control.Feedback>
                         <FloatingLabel controlId="floatingPassword" label="Jelszó" className="mb-3">
                             <Form.Control type="password" placeholder="Password" />
                             <Form.Control.Feedback type="invalid">A jelszó mező nem lehet üres.</Form.Control.Feedback>
                         </FloatingLabel>
                         <FloatingLabel controlId="floatingRePassword" label="Jelszó ismétlése" className="mb-3">
                             <Form.Control type="password" placeholder="Password"
-                                          isInvalid={this.validatePassword()}/>
+                                          />
                             <Form.Control.Feedback
-                                type="invalid">in</Form.Control.Feedback>
+                                type="invalid">lofasz</Form.Control.Feedback>
                         </FloatingLabel>
 
                         <Button variant="sailor_blue" size="xxl" type="submit" className="mb-3">
@@ -69,11 +71,13 @@ class RegisterComponent extends React.Component {
     handleRegister = e => {
         e.preventDefault()
         const form = e.currentTarget;
-        this.setState({validated: true})
-
-        if (form.checkValidity() === true) {
-
+        if (form.checkValidity() === false) {
+            e.preventDefault();
+            //e.stopPropagation();
+        }else{
+            console.log("asd")
         }
+        this.setState({validated:true});
     }
 }
 

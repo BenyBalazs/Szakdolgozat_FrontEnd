@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, Button, Col, Container, FloatingLabel, Form, Overlay, Row} from "react-bootstrap";
+import {Alert, Button, Col, Container, FloatingLabel, Form, Row} from "react-bootstrap";
 import './loginComponent.css'
 import '../formStyle.css'
 import {loginFunction} from "./loginFunction";
@@ -29,9 +29,9 @@ class LoginComponent extends React.Component {
                         </Alert>
 
                         <FloatingLabel controlId="floatingInput" label="Felhasználónév" className="mb-3">
-                            <Form.Control type="text" placeholder="Anonimusz"
+                            <Form.Control type="text" placeholder="Anonimusz" required
                                           onChange={e => this.setState({username: e.target.value})}
-                                          value={this.state.username} required/>
+                                          value={this.state.username}/>
                             <Form.Control.Feedback type="invalid">A felhasználónév mező nem maradhat üres.</Form.Control.Feedback>
                         </FloatingLabel>
                         <FloatingLabel controlId="floatingPassword" label="Jelszó" className="mb-3">
