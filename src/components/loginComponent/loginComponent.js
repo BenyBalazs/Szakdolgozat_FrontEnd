@@ -4,6 +4,7 @@ import {loginFunction} from "./loginFunction";
 import "../commonComponentCss.css"
 import {RedirectLoginButton} from "../redirectLoginButton";
 import {createAuthTokenCookie, getAuthToken} from "../fileHandler/cookieManager";
+import {render} from "react-dom";
 
 class LoginComponent extends React.Component {
 
@@ -66,13 +67,13 @@ class LoginComponent extends React.Component {
         const form = e.currentTarget;
 
         if (form.checkValidity() === true) {
-            console.log(this.state.username);
-            console.log(this.state.password);
             this.setState({show: true})
             loginFunction(this.state.username, this.state.password)
                 .then(res => {
-                    createAuthTokenCookie(res.data.token)
-                    getAuthToken();
+                    localStorage.setItem('token', res.data.token)
+
+                    this.props.forceForce()
+                    this.props.navigate("/", render)
                 })
                 .catch(err => {
 
