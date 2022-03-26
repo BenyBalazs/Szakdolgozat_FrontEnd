@@ -26,16 +26,21 @@ class Header extends React.Component {
                 </Nav>
         }
         let finances;
-        if (this.props.userDetails) {
-            finances =
-                <Nav>
-                    <Nav.Link href="/finances">Pénzügyek</Nav.Link>
-                </Nav>
+        let adminFunc;
+        if (!this.props.userDetails) {
         } else {
             finances =
-                <Nav>
-                    <Nav.Link href="/login">Pénzügyek</Nav.Link>
-                </Nav>
+                <NavDropdown title="Pénzügyek" id="basic-nav-dropdown">
+                    <NavDropdown.Item href="#list-finances">Pénzügyek listázása</NavDropdown.Item>
+                    <NavDropdown.Item href="/create-finances">Kiadás/bevétel létrehozása</NavDropdown.Item>
+                </NavDropdown>
+            if (this.props.userDetails.role === 'ROLE_ADMIN') {
+                adminFunc =
+                    <NavDropdown title="Kategóriák" id="basic-nav-dropdown">
+                        <NavDropdown.Item href="/list-categories">Kategóriák listázása</NavDropdown.Item>
+                        <NavDropdown.Item href="/create-categories">Kategóriák létrehozása</NavDropdown.Item>
+                    </NavDropdown>
+            }
         }
 
         return (
@@ -59,6 +64,7 @@ class Header extends React.Component {
                         <Nav className="me-auto">
                             <Nav.Link href="/">Főoldal</Nav.Link>
                             {finances}
+                            {adminFunc}
                         </Nav>
                         {login}
                     </Navbar.Collapse>
