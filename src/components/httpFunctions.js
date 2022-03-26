@@ -38,3 +38,21 @@ export async function postCreateCategory(name, type) {
 
     return await axios.post('/category', createRequest)
 }
+
+export async function postQueryCategory(name, type, page, rows) {
+
+    let queryRequest = {
+        page: page === 0 ? 1 : page,
+        row: rows,
+        queryParams: {
+            name: name,
+            transactionType: type
+        }
+    }
+    console.log(queryRequest)
+    return await axios.post('/category/query', queryRequest)
+}
+
+export async function getCategoryById(id) {
+    return await axios.get('/category/', {params: {id: id}})
+}

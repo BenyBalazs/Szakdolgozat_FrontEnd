@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Pagination from "react-bootstrap/Pagination";
 import { scrollToTop } from "./scroll";
 import PropTypes from "prop-types";
+import './pagination.css'
 
 const PaginationComponent = ({
   itemsCount,
@@ -26,11 +27,11 @@ const PaginationComponent = ({
   };
 
   const onPreviousPageClick = () => {
-    changePage(currentPage => currentPage - 1);
+    changePage(currentPage - 1);
   };
 
   const onNextPageClick = () => {
-    changePage(currentPage => currentPage + 1);
+    changePage(currentPage + 1);
   };
 
   const setLastPageAsCurrent = () => {
@@ -46,7 +47,7 @@ const PaginationComponent = ({
     const isPageNumberFirst = pageNumber === 1;
     const isPageNumberLast = pageNumber === pagesCount;
     const isCurrentPageWithinTwoPageNumbers =
-      Math.abs(pageNumber - currentPage) <= 2;
+      Math.abs(pageNumber - currentPage) <= 1;
 
     if (
       isPageNumberFirst ||
@@ -59,6 +60,7 @@ const PaginationComponent = ({
           key={pageNumber}
           onClick={() => onPageNumberClick(pageNumber)}
           active={pageNumber === currentPage}
+          variant="sailor_blue"
         >
           {pageNumber}
         </Pagination.Item>

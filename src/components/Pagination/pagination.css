@@ -1,0 +1,13 @@
+.page-item a,
+.page-link:hover {
+    color: #00203FFF;;
+}
+
+.page-item.active .page-link {
+    border-color: #00203FFF;
+    background-color: #00203FFF;
+}
+
+.muted {
+    pointer-events: none;
+}

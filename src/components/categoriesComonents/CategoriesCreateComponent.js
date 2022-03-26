@@ -83,7 +83,6 @@ export default class CategoriesCreateComponent extends React.Component {
                         </Form>
                     </Col>
                 </Row>
-
             </Container>
         );
     }

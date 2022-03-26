@@ -1,39 +1,103 @@
 import React, {useState} from "react";
-import {Button, Col, Container, FloatingLabel, Form, Pagination, Row} from "react-bootstrap";
+import {Button, Col, Container, FloatingLabel, Form, ListGroup, Pagination, Row} from "react-bootstrap";
 import PaginationComponent from "../Pagination/Pagination";
 import {useScroll} from "../Pagination/scroll";
+import {postQueryCategory} from "../httpFunctions";
+import CategoriesEitComponent from "./CategoriesEditComponent";
+import CategoriesEditComponent from "./CategoriesEditComponent";
+
+const rows = 5;
 
 export default class CategoriesListComponent extends React.Component {
 
     constructor(props) {
         super(props);
         this.setCurrentPage = this.setCurrentPage.bind(this)
+        this.setShowModel = this.setShowModel.bind(this)
         this.state = {
             name: "",
             type: "INCOME",
             currentPage: 1,
+            maxResult: 0,
+            dataList: [],
+            waitForResponse: true,
+            showEdit: false,
         }
+    }
+
+    componentDidMount() {
+        postQueryCategory(this.state.name, this.state.type, this.state.currentPage, rows)
+            .then(r => {
+                console.log(r.data)
+                this.setState({
+                    maxResult: r.data.maxElements,
+                    dataList: r.data.list,
+                    waitForResponse: false,
+                })
+            })
     }
 
     setCurrentPage(page) {
         this.setState({currentPage: page})
-        return page
+        console.log(page)
+        postQueryCategory(this.state.name, this.state.type, page, rows)
+            .then(r => {
+                console.log(r.data)
+                this.setState({
+                    maxResult: r.data.maxElements,
+                    dataList: r.data.list,
+                })
+            })
     }
 
-    handleFilter() {
+    handleSelectType = e => {
+        console.log(e.target.value)
+        this.setState({type: e.target.value})
     }
 
-    /*const [currentPage, setCurrentPage] = useState(1);
-    const scrollPosition = useScroll();
-    const [name, setName] = useState("")
-
-    const handleFilter = function () {
-
+    handleFilter = e => {
+        e.preventDefault()
+        console.log("filtering")
+        console.log(this.state.name)
+        postQueryCategory(this.state.name, this.state.type, this.state.currentPage, rows)
+            .then(r => {
+                console.log(r.data)
+                this.setState({
+                    maxResult: r.data.maxElements,
+                    dataList: r.data.list,
+                    categoryId: 0
+                })
+            }).catch(e => {
+            console.log(e)
+        })
     }
-    const handleSelectType = function () {
 
-    }*/
+    handleCategorySelect(e, id) {
+        this.setState({categoryId: id})
+        this.setShowModel(true)
+    }
+
+    setShowModel = bool => {
+        this.setState({showModel: bool})
+    }
+
     render() {
+
+        if (this.state.waitForResponse) {
+            return <div/>
+        }
+
+        let categoryList = this.state.dataList.map((entity) => (
+            <ListGroup.Item
+                variant={"light"}
+                id={entity.categoryEntity.id}
+                key={entity.categoryEntity.id}
+                itemID={entity.categoryEntity.id}
+                action
+                as={"button"}
+                onClick={e => this.handleCategorySelect(e, entity.categoryEntity.id)}
+                href={"#" + entity.categoryEntity.id}>
+                Elnevezés: {entity.categoryEntity.name}</ListGroup.Item>))
 
         return (
             <Container id={"container-outline"} className={"justify-content-center"}>
@@ -61,13 +125,20 @@ export default class CategoriesListComponent extends React.Component {
                                 </Button>
                             </Col>
                             <hr/>
-                            <Col>content</Col>
+                            <Col>{categoryList}</Col>
+                            {this.state.showModel ?
+                                <CategoriesEditComponent
+                                    show={this.state.showModel}
+                                    onHide={this.setShowModel}
+                                    categoryid={this.state.categoryId}/>
+                                :
+                                null}
                             <hr/>
                             <Col>
                                 <Container className={"m-auto"}>
                                     <PaginationComponent
-                                        itemsCount={13}
-                                        itemsPerPage={2}
+                                        itemsCount={this.state.maxResult}
+                                        itemsPerPage={rows}
                                         currentPage={this.state.currentPage}
                                         setCurrentPage={this.setCurrentPage}
                                         alwaysShown={false}/>
