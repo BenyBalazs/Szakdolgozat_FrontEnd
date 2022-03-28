@@ -21,7 +21,8 @@ export default class CategoriesListComponent extends React.Component {
             maxResult: 0,
             dataList: [],
             waitForResponse: true,
-            showEdit: false,
+            isEdited: false,
+            showModel: false,
         }
     }
 
@@ -56,7 +57,10 @@ export default class CategoriesListComponent extends React.Component {
     }
 
     handleFilter = e => {
-        e.preventDefault()
+        if (e) {
+            e.preventDefault()
+        }
+
         console.log("filtering")
         console.log(this.state.name)
         postQueryCategory(this.state.name, this.state.type, this.state.currentPage, rows)
@@ -74,11 +78,26 @@ export default class CategoriesListComponent extends React.Component {
 
     handleCategorySelect(e, id) {
         this.setState({categoryId: id})
-        this.setShowModel(true)
+        this.setState({showModel: true})
     }
 
-    setShowModel = bool => {
-        this.setState({showModel: bool})
+    setShowModel = (answer) => {
+        console.log(answer)
+        this.setState({showModel: answer.hide, isEdited: answer.update})
+        if (answer.update) {
+            console.log("sholud reload")
+            postQueryCategory(this.state.name, this.state.type, this.state.currentPage, rows)
+                .then(r => {
+                    console.log(r.data)
+                    this.setState({
+                        maxResult: r.data.maxElements,
+                        dataList: r.data.list,
+                        categoryId: 0
+                    })
+                }).catch(e => {
+                console.log(e)
+            })
+        }
     }
 
     render() {

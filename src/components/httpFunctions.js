@@ -39,6 +39,23 @@ export async function postCreateCategory(name, type) {
     return await axios.post('/category', createRequest)
 }
 
+export async function putEditCategory(id ,name, type) {
+
+    let editRequest = {
+        categoryEntityData: {
+            id: id,
+            name: name,
+            type: type,
+        }
+    }
+
+    return await axios.put('/category', editRequest)
+}
+
+export async function deleteCategory(id) {
+    return await axios.delete('/category/', {params: {id: id}})
+}
+
 export async function postQueryCategory(name, type, page, rows) {
 
     let queryRequest = {

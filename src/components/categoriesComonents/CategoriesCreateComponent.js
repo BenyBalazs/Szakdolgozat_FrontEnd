@@ -1,5 +1,5 @@
 import React from "react";
-import {Alert, Button, Col, Container, FloatingLabel, Form, ListGroup, Row} from "react-bootstrap";
+import {Alert, Button, Col, Container, FloatingLabel, Form, Row} from "react-bootstrap";
 import {postCreateCategory} from "../httpFunctions";
 
 export default class CategoriesCreateComponent extends React.Component {

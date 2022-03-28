@@ -1,6 +1,6 @@
 import React from "react";
 import {Alert, Button, Col, Container, FloatingLabel, Form, Modal, Row} from "react-bootstrap";
-import {getCategoryById, postCreateCategory} from "../httpFunctions";
+import {deleteCategory, getCategoryById, putEditCategory} from "../httpFunctions";
 
 export default class CategoriesEditComponent extends React.Component {
 
@@ -14,14 +14,18 @@ export default class CategoriesEditComponent extends React.Component {
             alertVerboseMsg: "",
             type: "INCOME",
             name: "",
+            id: 0,
+            isEdited: false
         }
     }
 
     componentDidMount() {
         console.log("geting category")
+        console.log(this.props)
         getCategoryById(this.props.categoryid).then(r => {
             console.log(r)
             this.setState({
+                id: r.data.categoryDetails.id,
                 type: r.data.categoryDetails.type,
                 name: r.data.categoryDetails.name,
             })
@@ -31,13 +35,28 @@ export default class CategoriesEditComponent extends React.Component {
         })
     }
 
-    handleClose() {
-        this.props.onHide(false)
+    handleClose = () => {
+        let answer = {hide: false, update: this.state.isEdited}
+        console.log(answer)
+        this.props.onHide(answer)
     }
 
     handleSelectType = (e) => {
         console.log(e.target.value)
         this.setState({type: e.target.value})
+    }
+
+    handleDelete = () => {
+        deleteCategory(this.state.id).then(
+            e => {
+                console.log(e.data)
+                let answer = {hide: false, update: true}
+                this.props.onHide(answer)
+            }
+        ).catch(e => {
+            console.log(e.response.data)
+        })
+
     }
 
     showAlert(type, msg, verboseMsg) {
@@ -57,10 +76,11 @@ export default class CategoriesEditComponent extends React.Component {
     handleSubmit = e => {
         e.preventDefault()
         this.setState({validated: true})
-        postCreateCategory(this.state.name, this.state.type)
+        putEditCategory(this.state.id ,this.state.name, this.state.type)
             .then(r => {
                 console.log(r.data)
-                this.showAlert("success", "Sikeres létrehozás", "A tranzakció sikeresen létre lett hozva!")
+                this.setState({isEdited: true})
+                this.showAlert("success", "Sikeres szerkesztés", "A kategória sikeresen szerkesztve lett !")
             }).catch(e => {
             console.log(e.response.data)
             this.showAlert("danger", "Hiba", e.response.data.errorType)
@@ -77,7 +97,7 @@ export default class CategoriesEditComponent extends React.Component {
                    size="lg"
                    aria-labelledby="contained-modal-title-vcenter"
                    centered>
-                <Modal.Header closeButton>
+                <Modal.Header>
                     <Modal.Title id="contained-modal-title-vcenter">
                         Szerkesztés
                     </Modal.Title>
@@ -88,7 +108,7 @@ export default class CategoriesEditComponent extends React.Component {
                             <Col id={"container-outline"} className={"text-center"}>
                                 <Form className="text-center" noValidate validated={this.state.validated}
                                       onSubmit={this.handleSubmit}>
-                                    <h1 className="mb-5">Kategória létrehozása</h1>
+                                    <h1 className="mb-5">Kategória Szerkesztése</h1>
 
                                     <Alert className={this.state.showAlert} variant={this.state.alertType}>
                                         <Alert.Heading>{this.state.alertMsg}</Alert.Heading>
@@ -103,13 +123,13 @@ export default class CategoriesEditComponent extends React.Component {
                                         <Form.Control.Feedback type="invalid">A név mező nem maradhat
                                             üres.</Form.Control.Feedback>
                                     </FloatingLabel>
-                                    <Form.Select className={"mb-3"} onChange={this.handleSelectType}>
+                                    <Form.Select className={"mb-3"} onChange={this.handleSelectType} value={this.state.type}>
                                         <option value="INCOME">Bevétel</option>
                                         <option value="EXPENSE">Kiadás</option>
                                     </Form.Select>
 
                                     <Button variant="sailor_blue" size="xxl" className="mb-3" type="submit">
-                                        Hozzáadás
+                                        Szerkesztés
                                     </Button>
 
                                 </Form>
@@ -118,6 +138,7 @@ export default class CategoriesEditComponent extends React.Component {
                     </Container>
                 </Modal.Body>
                 <Modal.Footer>
+                    <Button variant="danger" onClick={this.handleDelete}>Törlés</Button>
                     <Button variant={"sailor_blue"} onClick={this.handleClose}>Bezárás</Button>
                 </Modal.Footer>
             </Modal>
