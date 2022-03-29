@@ -16,10 +16,14 @@ import {getUserDetails} from "./components/httpFunctions";
 import {carryValue} from "@testing-library/user-event/dist/keyboard/shared";
 import logout from "./components/Logout";
 import NavigableUserDetailsComponent from "./components/userDetailsComponent/NavigableUserDetailsComponent";
-import FinancesComponent from "./components/financesComponent/FinancesComponent";
-import CreateOrEditFinancesComponent from "./components/financesComponent/CreateOrEditFinancesComponent";
+import FinancesEditComponent from "./components/financesComponent/FinancesEditComponent";
+import CreateOrEditFinancesComponent from "./components/financesComponent/CreateFinancesComponent";
 import CategoriesCreateComponent from "./components/categoriesComonents/CategoriesCreateComponent";
 import CategoriesListComponent from "./components/categoriesComonents/CategoriesListComponent";
+import ListFinancesComponent from "./components/financesComponent/ListFinancesComponent";
+import FinancesRouterWrapper from "./components/financesComponent/FinancesRouterWrapper";
+import FinancesEditComponentWrapper from "./components/financesComponent/FinancesEditComponentWarapper";
+import CreateFinancesComponent from "./components/financesComponent/CreateFinancesComponent";
 
 axios.defaults.baseURL = "http://localhost:8080/api";
 export default class App extends Component {
@@ -82,10 +86,11 @@ export default class App extends Component {
                         <Route path="/register" element={<RegisterComponent/>}/>
                         <Route path="/logout" element={<Logout/>}/>
                         <Route path="/details" element={<NavigableUserDetailsComponent force={this.asdasd} userDetails={this.state.userDetails}/>}/>
-                        <Route path="/finances" element={<FinancesComponent userDetails={this.state.userDetails}/>}/>
-                        <Route path={"/create-finances"} element={<CreateOrEditFinancesComponent userDetails={this.state.userDetails}/>}/>
+                        <Route path="/finances" element={<FinancesRouterWrapper userDetails={this.state.userDetails}/>}/>
+                        <Route path={"/create-finances"} element={<CreateFinancesComponent userDetails={this.state.userDetails}/>}/>
                         <Route path={"/create-categories"} element={<CategoriesCreateComponent userDetails={this.state.userDetails}/>}/>
                         <Route path={"/list-categories"} element={<CategoriesListComponent userDetails={this.state.userDetails}/>}/>
+                        <Route exact path={"/finances-edit/:id"} element={<FinancesEditComponentWrapper userDetails={this.state.userDetails}/>}/>
                     </Routes>
                 </div>
             </div>

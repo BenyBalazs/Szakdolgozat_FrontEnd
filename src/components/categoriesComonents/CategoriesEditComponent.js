@@ -96,6 +96,7 @@ export default class CategoriesEditComponent extends React.Component {
             <Modal {...this.props}
                    size="lg"
                    aria-labelledby="contained-modal-title-vcenter"
+                   scrollable={true}
                    centered>
                 <Modal.Header>
                     <Modal.Title id="contained-modal-title-vcenter">

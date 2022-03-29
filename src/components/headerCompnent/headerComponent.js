@@ -31,7 +31,7 @@ class Header extends React.Component {
         } else {
             finances =
                 <NavDropdown title="Pénzügyek" id="basic-nav-dropdown">
-                    <NavDropdown.Item href="#list-finances">Pénzügyek listázása</NavDropdown.Item>
+                    <NavDropdown.Item href="/finances">Pénzügyek listázása</NavDropdown.Item>
                     <NavDropdown.Item href="/create-finances">Kiadás/bevétel létrehozása</NavDropdown.Item>
                 </NavDropdown>
             if (this.props.userDetails.role === 'ROLE_ADMIN') {

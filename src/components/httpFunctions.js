@@ -19,7 +19,7 @@ export async function postCreateTransaction(name, amount, date, type, category, 
             amount: amount,
             dateOfPayment: date,
             type: type,
-            category: category
+            categoryId: category
         }
     }
 
@@ -72,4 +72,57 @@ export async function postQueryCategory(name, type, page, rows) {
 
 export async function getCategoryById(id) {
     return await axios.get('/category/', {params: {id: id}})
+}
+
+export async function postTransactionQuery(owner ,name, dateFrom, dateTo, type, categoryId, page, row) {
+    let queryRequest = {
+        page: page === 0 ? 1 : page,
+        row: row,
+        queryParams: {
+            owner: owner,
+            name: name,
+            dateOfPaymentFrom: dateFrom,
+            dateOfPaymentTo: dateTo,
+            type: type,
+            categoryId: categoryId
+        }
+    }
+    console.log(queryRequest)
+    return await axios.post('/transaction/query', queryRequest)
+}
+
+export async function getFinanceDataById(id, owner) {
+    return await axios.get('/transaction/', {params: {id: id, owner: owner}})
+}
+
+export async function putEditTransaction(id ,name, amount, date, type, category, owner) {
+
+    let editRequest = {
+        owner: owner,
+        transactionEntityData: {
+            id: id,
+            name: name,
+            amount: amount,
+            dateOfPayment: date,
+            type: type,
+            categoryId: category
+        }
+    }
+    return await axios.put('/transaction/', editRequest)
+}
+
+export async function postGetBalance(owner, from, to) {
+
+    let balanceRequest = {
+        owner: owner,
+        dateOfPaymentFrom: from,
+        dateOfPaymentTo: to,
+    }
+    console.log("balance request")
+    console.log(balanceRequest)
+    return await axios.post('/balance/', balanceRequest)
+}
+
+export async function deleteTransaction(id, owner) {
+    return await axios.delete('/transaction/', {params: {id: id, owner: owner}})
 }

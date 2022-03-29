@@ -2,12 +2,16 @@ import React from "react";
 import {Alert, Button, Col, Collapse, Container, FloatingLabel, Form, ListGroup, Row} from "react-bootstrap";
 import Datetime from 'react-datetime';
 import "react-datetime/css/react-datetime.css";
-import {getCategories, postCreateTransaction} from "../httpFunctions";
+import {getCategories, postCreateTransaction, postQueryCategory} from "../httpFunctions";
+import PaginationComponent from "../Pagination/Pagination";
 
-export default class CreateOrEditFinancesComponent extends React.Component {
+const rows = 5
+
+export default class CreateFinancesComponent extends React.Component {
 
     constructor(props) {
         super(props);
+        this.setCurrentPage = this.setCurrentPage.bind(this);
         this.state = {
             validated: false,
             open: false,
@@ -20,7 +24,9 @@ export default class CreateOrEditFinancesComponent extends React.Component {
             showAlert: "d-none",
             alertType: "danger",
             alertMsg: "",
-            alertVerboseMsg: ""
+            alertVerboseMsg: "",
+            currentPage: 1,
+            maxElements: 0,
         };
     }
 
@@ -73,8 +79,34 @@ export default class CreateOrEditFinancesComponent extends React.Component {
         this.setState({type: e.target.value})
         this.setState({dateList: []})
         this.setState({categoryId: null})
-        this.getCategoryData(e.target.value)
+        postQueryCategory(null, e.target.value, this.state.currentPage, rows)
+            .then(r => {
+                console.log(r.data)
+                this.setState({
+                    maxElements: r.data.maxElements,
+                    dataList: r.data.list
+                })
+            }).catch(e => {
+            console.log(e.response.data)
+        })
     }
+
+    setCurrentPage(page) {
+        this.setState({currentPage: page})
+        this.setState({dateList: []})
+        this.setState({categoryId: null})
+        postQueryCategory(null, this.state.type, page, rows)
+            .then(r => {
+                console.log(r.data)
+                this.setState({
+                    maxElements: r.data.maxElements,
+                    dataList: r.data.list
+                })
+            }).catch(e => {
+            console.log(e.response.data)
+        })
+    }
+
     handleCategorySelect = (e, id) => {
         e.preventDefault()
         console.log(id)
@@ -83,13 +115,17 @@ export default class CreateOrEditFinancesComponent extends React.Component {
     }
 
     getCategoryData = (type) => {
-        getCategories(type).then(r => {
-            this.setState({dataList: r.data.list})
-            console.log(this.state.dataList)
+        postQueryCategory(null, type, this.state.currentPage, rows)
+            .then(r => {
+                console.log(r.data)
+                this.setState({
+                    maxElements: r.data.maxElements,
+                    dataList: r.data.list
+                })
+            }).catch(e => {
+            console.log(e.response.data)
         })
-            .catch(e => {
-                console.log(e)
-            })
+
     }
 
     render() {
@@ -144,10 +180,23 @@ export default class CreateOrEditFinancesComponent extends React.Component {
                     </Col>
 
                     <Col id={"container-outline"} md={{span: 4, offset: 1}} className={"text-center"}>
-                        <h1 className={"mb-3"}>Kategóriák</h1>
-                        <ListGroup>
-                            {categoryList}
-                        </ListGroup>
+                        <Row>
+                            <h1 className={"mb-3"}>Kategóriák</h1>
+                            <Col>
+                                <ListGroup>
+                                    {categoryList}
+                                </ListGroup>
+                            </Col>
+                            <hr/>
+                            <Col>
+                                <PaginationComponent
+                                    itemsCount={this.state.maxElements}
+                                    itemsPerPage={rows}
+                                    currentPage={this.state.currentPage}
+                                    setCurrentPage={this.setCurrentPage}
+                                    alwaysShown={false}/>
+                            </Col>
+                        </Row>
                     </Col>
                 </Row>
                 <Collapse in={this.state.open}>
