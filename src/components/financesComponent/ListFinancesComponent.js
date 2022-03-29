@@ -142,6 +142,11 @@ export default class ListFinancesComponent extends React.Component {
                                 </Button>
                             </Col>
                         </Row>
+                        <Row>
+                            <Col>
+                                <div>Az ön egyenlege: {this.state.balance}</div>
+                            </Col>
+                        </Row>
                         <hr/>
                         <Row>
                             <Col>
