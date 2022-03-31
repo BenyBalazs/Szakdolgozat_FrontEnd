@@ -86,7 +86,7 @@ class LoginComponent extends React.Component {
                                 verboseErrorMsg: "Úgy tűnik, hogy hibás adatokat adott meg kérjük ellenőrizze belépési adatait és próbálja újra."
                             })
                     } else {
-                        console.log(err.response.status)
+                        console.log(err.response)
                         this.setState(
                             {
                                 showError: "d-visible",
