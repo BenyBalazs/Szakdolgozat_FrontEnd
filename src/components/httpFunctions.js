@@ -83,7 +83,7 @@ export async function postTransactionQuery(owner ,name, dateFrom, dateTo, type, 
             name: name,
             dateOfPaymentFrom: dateFrom,
             dateOfPaymentTo: dateTo,
-            type: type,
+            type: type === "BOTH" ? null : type,
             categoryId: categoryId
         }
     }

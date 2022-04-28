@@ -14,7 +14,7 @@ export default class ListFinancesComponent extends React.Component {
         this.state = {
             name: "",
             dateFrom: findWeekBeforeToday(),
-            type: "EXPENSE",
+            type: "BOTH",
             dateTo: Date.now(),
             maxResult: 0,
             dataList: [],
@@ -132,6 +132,7 @@ export default class ListFinancesComponent extends React.Component {
                                              value={this.state.type}>
                                     <option value="INCOME">Bevétel</option>
                                     <option value="EXPENSE">Kiadás</option>
+                                    <option value="BOTH">Mindkettő</option>
                                 </Form.Select>
                             </Col>
                         </Row>
