@@ -248,7 +248,7 @@ export default class FinancesEditComponent extends React.Component {
                                 <Form.Control.Feedback type="invalid">Az összeg mező nem maradhat
                                     üres.</Form.Control.Feedback>
                             </FloatingLabel>
-                            <Datetime className="mb-3" onChange={e => this.setState({date: e})}
+                            <Datetime className="mb-3" onChange={(e) => {console.log(e); this.setState({date: e.toDate()})}}
                                       value={this.state.date}>
                             </Datetime>
                         </Form>

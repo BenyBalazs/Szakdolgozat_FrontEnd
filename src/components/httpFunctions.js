@@ -22,7 +22,7 @@ export async function postCreateTransaction(name, amount, date, type, category, 
             categoryId: category
         }
     }
-
+    console.log(createRequest)
     return await axios.post('/transaction', createRequest)
 
 }
@@ -97,7 +97,7 @@ export async function getFinanceDataById(id, owner) {
 }
 
 export async function putEditTransaction(id ,name, amount, date, type, category, owner) {
-
+    console.log(date)
     let editRequest = {
         owner: owner,
         transactionEntityData: {
