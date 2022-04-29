@@ -25,7 +25,7 @@ import FinancesRouterWrapper from "./components/financesComponent/FinancesRouter
 import FinancesEditComponentWrapper from "./components/financesComponent/FinancesEditComponentWarapper";
 import CreateFinancesComponent from "./components/financesComponent/CreateFinancesComponent";
 
-axios.defaults.baseURL = "https://ultra-szuper-kiadaskezelo-be.herokuapp.com/api";
+axios.defaults.baseURL = "http://localhost:8080/api";
 export default class App extends Component {
 
     constructor() {

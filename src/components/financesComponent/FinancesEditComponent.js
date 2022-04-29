@@ -220,7 +220,7 @@ export default class FinancesEditComponent extends React.Component {
                     <Col id={"container-outline"} className={"text-center"}>
                         <Form id={"detailsForm"} className="text-center" noValidate validated={this.state.validated}
                               onSubmit={this.handleSubmit}>
-                            <h1 className="mb-5">Bevétel/kiadás létrehozása</h1>
+                            <h1 className="mb-5">Bevétel/kiadás szerkesztése</h1>
                             <Col className={"mb-3"}>
                                 <Form.Label>Kategória szerkesztése:</Form.Label>
                                 <BootstrapSwitchButton onChange={e => this.handleToggle(e)}

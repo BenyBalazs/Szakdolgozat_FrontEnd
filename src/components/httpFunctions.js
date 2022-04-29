@@ -27,12 +27,13 @@ export async function postCreateTransaction(name, amount, date, type, category, 
 
 }
 
-export async function postCreateCategory(name, type) {
+export async function postCreateCategory(name, type, user) {
 
     let createRequest = {
         categoryData: {
             name: name,
             type: type,
+            owner: user,
         }
     }
 

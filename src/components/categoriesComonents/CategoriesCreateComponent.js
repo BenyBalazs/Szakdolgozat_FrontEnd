@@ -14,12 +14,17 @@ export default class CategoriesCreateComponent extends React.Component {
             alertVerboseMsg: "",
             type: "INCOME",
             name: "",
+            scope: "USER"
         }
     }
 
     handleSelectType = (e) => {
         console.log(e.target.value)
         this.setState({type: e.target.value})
+    }
+
+    handleSelectScope = e => {
+        this.setState({scope: e.target.value})
     }
 
     showAlert(type, msg, verboseMsg) {
@@ -39,7 +44,7 @@ export default class CategoriesCreateComponent extends React.Component {
     handleSubmit = e => {
         e.preventDefault()
         this.setState({validated: true})
-        postCreateCategory(this.state.name, this.state.type)
+        postCreateCategory(this.state.name, this.state.type, this.state.scope === "GLOBAL" ? null : this.props.userDetails.username)
             .then(r => {
                 console.log(r.data)
                 this.showAlert("success", "Sikeres létrehozás", "A tranzakció sikeresen létre lett hozva!")
@@ -50,6 +55,18 @@ export default class CategoriesCreateComponent extends React.Component {
     }
 
     render() {
+
+        let select;
+        let selectLabel;
+        if (this.props.userDetails.role === "ROLE_ADMIN") {
+            selectLabel = <Form.Label>Hatáskör</Form.Label>
+            select =
+            <Form.Select className={"mb-3"} onChange={this.handleSelectScope}>
+                <option value="USER">Aktuális Felhasználó</option>
+                <option value="GLOBAL">Mindenki</option>
+            </Form.Select>
+        }
+
         return (
             <Container className={"text-center"}>
                 <Row className="justify-content-md-center">
@@ -71,11 +88,13 @@ export default class CategoriesCreateComponent extends React.Component {
                                 <Form.Control.Feedback type="invalid">A név mező nem maradhat
                                     üres.</Form.Control.Feedback>
                             </FloatingLabel>
+                            <Form.Label>Típus</Form.Label>
                             <Form.Select className={"mb-3"} onChange={this.handleSelectType}>
                                 <option value="INCOME">Bevétel</option>
                                 <option value="EXPENSE">Kiadás</option>
                             </Form.Select>
-
+                            {selectLabel}
+                            {select}
                             <Button variant="sailor_blue" size="xxl" className="mb-3" type="submit">
                                 Hozzáadás
                             </Button>

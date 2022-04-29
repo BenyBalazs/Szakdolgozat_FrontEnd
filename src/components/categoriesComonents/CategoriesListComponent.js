@@ -149,7 +149,8 @@ export default class CategoriesListComponent extends React.Component {
                                 <CategoriesEditComponent
                                     show={this.state.showModel}
                                     onHide={this.setShowModel}
-                                    categoryid={this.state.categoryId}/>
+                                    categoryid={this.state.categoryId}
+                                    userDetails={this.props.userDetails}/>
                                 :
                                 null}
                             <hr/>

@@ -1,6 +1,7 @@
 import React from "react";
 import {Alert, Button, Col, Container, FloatingLabel, Form, Modal, Row} from "react-bootstrap";
 import {deleteCategory, getCategoryById, putEditCategory} from "../httpFunctions";
+import collapse from "bootstrap/js/src/collapse";
 
 export default class CategoriesEditComponent extends React.Component {
 
@@ -15,7 +16,8 @@ export default class CategoriesEditComponent extends React.Component {
             type: "INCOME",
             name: "",
             id: 0,
-            isEdited: false
+            isEdited: false,
+            editable: false
         }
     }
 
@@ -24,6 +26,11 @@ export default class CategoriesEditComponent extends React.Component {
         console.log(this.props)
         getCategoryById(this.props.categoryid).then(r => {
             console.log(r)
+            console.log(this.props.userDetails.role)
+            if (r.data.categoryDetails.owner === null && this.props.userDetails.role !== "ROLE_ADMIN") {
+                console.log("nem admin")
+                this.setState({editable: true})
+            }
             this.setState({
                 id: r.data.categoryDetails.id,
                 type: r.data.categoryDetails.type,
@@ -91,6 +98,18 @@ export default class CategoriesEditComponent extends React.Component {
         if (!this.props) {
             return <div/>
         }
+
+        let select;
+        let selectLabel;
+        if (this.props.userDetails.role === "ROLE_ADMIN") {
+            selectLabel = <Form.Label>Hatáskör</Form.Label>
+            select =
+                <Form.Select className={"mb-3"} onChange={this.handleSelectScope}>
+                    <option value="USER">Aktuális Felhasználó</option>
+                    <option value="GLOBAL">Mindenki</option>
+                </Form.Select>
+        }
+
         return (
 
             <Modal {...this.props}
@@ -120,16 +139,19 @@ export default class CategoriesEditComponent extends React.Component {
                                         <Form.Control type="text" placeholder="name"
                                                       onChange={e => this.setState({name: e.target.value})}
                                                       value={this.state.name}
+                                                      disabled={this.state.editable}
                                                       required/>
                                         <Form.Control.Feedback type="invalid">A név mező nem maradhat
                                             üres.</Form.Control.Feedback>
                                     </FloatingLabel>
-                                    <Form.Select className={"mb-3"} onChange={this.handleSelectType} value={this.state.type}>
+                                    <Form.Label>Típus</Form.Label>
+                                    <Form.Select className={"mb-3"} onChange={this.handleSelectType} value={this.state.type} disabled={this.state.editable}>
                                         <option value="INCOME">Bevétel</option>
                                         <option value="EXPENSE">Kiadás</option>
                                     </Form.Select>
-
-                                    <Button variant="sailor_blue" size="xxl" className="mb-3" type="submit">
+                                    {selectLabel}
+                                    {select}
+                                    <Button variant="sailor_blue" size="xxl" className="mb-3" type="submit" disabled={this.state.editable}>
                                         Szerkesztés
                                     </Button>
 
@@ -139,7 +161,7 @@ export default class CategoriesEditComponent extends React.Component {
                     </Container>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="danger" onClick={this.handleDelete}>Törlés</Button>
+                    <Button variant="danger" onClick={this.handleDelete} disabled={this.state.editable}>Törlés</Button>
                     <Button variant={"sailor_blue"} onClick={this.handleClose}>Bezárás</Button>
                 </Modal.Footer>
             </Modal>

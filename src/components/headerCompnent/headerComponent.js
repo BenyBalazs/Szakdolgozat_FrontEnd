@@ -34,13 +34,13 @@ class Header extends React.Component {
                     <NavDropdown.Item href="/finances">Pénzügyek listázása</NavDropdown.Item>
                     <NavDropdown.Item href="/create-finances">Kiadás/bevétel létrehozása</NavDropdown.Item>
                 </NavDropdown>
-            if (this.props.userDetails.role === 'ROLE_ADMIN') {
-                adminFunc =
-                    <NavDropdown title="Kategóriák" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="/list-categories">Kategóriák listázása</NavDropdown.Item>
-                        <NavDropdown.Item href="/create-categories">Kategóriák létrehozása</NavDropdown.Item>
-                    </NavDropdown>
-            }
+
+            adminFunc =
+                <NavDropdown title="Kategóriák" id="basic-nav-dropdown">
+                    <NavDropdown.Item href="/list-categories">Kategóriák listázása</NavDropdown.Item>
+                    <NavDropdown.Item href="/create-categories">Kategóriák létrehozása</NavDropdown.Item>
+                </NavDropdown>
+
         }
 
         return (
