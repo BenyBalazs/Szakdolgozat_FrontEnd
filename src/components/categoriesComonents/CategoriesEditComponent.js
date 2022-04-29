@@ -17,7 +17,7 @@ export default class CategoriesEditComponent extends React.Component {
             name: "",
             id: 0,
             isEdited: false,
-            editable: false
+            editable: false,
         }
     }
 
@@ -27,6 +27,11 @@ export default class CategoriesEditComponent extends React.Component {
         getCategoryById(this.props.categoryid).then(r => {
             console.log(r)
             console.log(this.props.userDetails.role)
+            if (r.data.categoryDetails.owner === null) {
+                this.setState({scope: "GLOBAL"})
+            } else {
+                this.setState({scope: "USER"})
+            }
             if (r.data.categoryDetails.owner === null && this.props.userDetails.role !== "ROLE_ADMIN") {
                 console.log("nem admin")
                 this.setState({editable: true})
@@ -104,7 +109,7 @@ export default class CategoriesEditComponent extends React.Component {
         if (this.props.userDetails.role === "ROLE_ADMIN") {
             selectLabel = <Form.Label>Hatáskör</Form.Label>
             select =
-                <Form.Select className={"mb-3"} onChange={this.handleSelectScope}>
+                <Form.Select className={"mb-3"} value={this.state.scope} onChange={this.handleSelectScope}>
                     <option value="USER">Aktuális Felhasználó</option>
                     <option value="GLOBAL">Mindenki</option>
                 </Form.Select>
